@@ -1,0 +1,13 @@
+# Local notes
+PLAN.md
+CLAUDE.local.md
+notes/
+
+# Build output
+build*/
+compile_commands.json
+
+# Market data (multi-GB, not redistributable)
+data/
+*.itch
+*.gz
