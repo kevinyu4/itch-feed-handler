@@ -5,6 +5,9 @@
 
 Closes #
 
+<!-- Testing and Why this is correct are for feature code. For docs, config and
+     tooling changes, delete them. -->
+
 ## Testing
 
 <!-- What you ran and what it showed: commands and real output, not "tests pass".
