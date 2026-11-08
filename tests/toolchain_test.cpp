@@ -1,10 +1,5 @@
-// Toolchain test: proves the compiler, standard library and test framework
-// can build and run this project.
-//
-// The feature checks stop the build with a clear message if the standard
-// library lacks a C++23 feature the project depends on. The compiler version
-// check alone is not enough: Clang uses the system's standard library, which
-// can be older than the compiler.
+// The compiler version check in CMakeLists.txt is not enough on its own: Clang
+// uses the system's standard library, which can be older than the compiler.
 
 #include <gtest/gtest.h>
 
