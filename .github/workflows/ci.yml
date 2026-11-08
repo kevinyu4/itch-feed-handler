@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.compiler }} ${{ matrix.sanitizers == 'ON' && 'sanitizers' || 'release' }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [g++-14, clang++-19]
+        sanitizers: ['OFF', 'ON']
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y ninja-build g++-14 clang-19
+      - name: Configure
+        env:
+          CXX: ${{ matrix.compiler }}
+        run: >
+          cmake -S . -B build -G Ninja
+          -DCMAKE_BUILD_TYPE=${{ matrix.sanitizers == 'ON' && 'Debug' || 'Release' }}
+          -DENABLE_SANITIZERS=${{ matrix.sanitizers }}
+      - name: Build
+        run: cmake --build build
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y ninja-build clang-19 clang-tidy-19 clang-format-19
+      - name: clang-format
+        run: git ls-files '*.cpp' '*.hpp' | xargs clang-format-19 --dry-run --Werror
+      - name: Configure
+        env:
+          CXX: clang++-19
+        run: cmake -S . -B build -G Ninja
+      - name: clang-tidy
+        run: run-clang-tidy-19 -p build -quiet '^(?!.*/_deps/).*$'

@@ -6,6 +6,8 @@ project(itch_feed_handler LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+# compile_commands.json, for clang-tidy and editors.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # The project does not use C++20 modules. Scanning for them would make Clang
 # builds need the separate clang-scan-deps tool.
 set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
