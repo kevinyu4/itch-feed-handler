@@ -59,7 +59,7 @@ docs/            format spec, design doc, performance report
 
 ## Building
 
-Requires Linux (multicast and `perf` behave best there; WSL2 works), a C++23 compiler (GCC 14+ or Clang 18+), CMake, and Ninja. GoogleTest and Google Benchmark are fetched by CMake.
+Requires Linux (multicast and `perf` behave best there; WSL2 works), a C++23 compiler (GCC 14+ or Clang 19+), CMake 3.28+, and Ninja. GoogleTest is fetched by CMake.
 
 ```sh
 cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
